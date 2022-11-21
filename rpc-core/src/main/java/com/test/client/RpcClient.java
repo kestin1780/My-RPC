@@ -1,6 +1,10 @@
 package com.test.client;
 
 import com.test.entity.RpcRequest;
+import com.test.entity.RpcResponse;
+import com.test.enumeration.ResponseCode;
+import com.test.enumeration.RpcError;
+import com.test.exception.RpcException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,10 +26,19 @@ public class RpcClient {
             ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
             objectOutputStream.writeObject(rpcRequest);
             objectOutputStream.flush();
-            return objectInputStream.readObject();
+            RpcResponse rpcResponse = (RpcResponse) objectInputStream.readObject();
+            if (rpcResponse == null) {
+                logger.error("服务调用失败, service: {}", rpcRequest.getInterfaceName());
+                throw new RpcException(RpcError.SERVICE_INVOCATION_FAILURE, " service:" + rpcRequest.getInterfaceName());
+            }
+            if (rpcResponse.getStatusCode() == null || rpcResponse.getStatusCode() != ResponseCode.SUCCESS.getCode()) {
+                logger.error("调用服务失败, service: {}, response: {}", rpcRequest.getInterfaceName(), rpcResponse);
+                throw new RpcException(RpcError.SERVICE_INVOCATION_FAILURE, " service:" + rpcRequest.getInterfaceName());
+            }
+            return rpcResponse.getData();
         } catch (IOException | ClassNotFoundException e) {
             logger.error("调用时有错误发生", e);
-            return null;
+            throw new RpcException("服务调用失败: ", e);
         }
     }
 }
