@@ -1,10 +1,12 @@
 package com.test;
 
-import com.test.client.RpcClientProxy;
+import com.test.rpc.RpcClientProxy;
+import com.test.socket.client.SocketClient;
 
-public class TestClient {
+public class SocketTestClient {
     public static void main(String[] args) {
-        RpcClientProxy proxy = new RpcClientProxy("127.0.0.1", 9000);
+        SocketClient client = new SocketClient("127.0.0.1", 9009);
+        RpcClientProxy proxy = new RpcClientProxy(client);
         HelloService helloService = proxy.getProxy(HelloService.class);
         HelloObject helloObject = new HelloObject(12, "This is a message");
         String res = helloService.hello(helloObject);

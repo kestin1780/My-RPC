@@ -1,4 +1,4 @@
-package com.test.server;
+package com.test.rpc;
 
 import com.test.entity.RpcRequest;
 import com.test.entity.RpcResponse;
