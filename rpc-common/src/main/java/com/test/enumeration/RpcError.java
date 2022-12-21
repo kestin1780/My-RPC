@@ -2,6 +2,10 @@ package com.test.enumeration;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+/**
+ *  Rpc调用过程中的错误
+ */
 @AllArgsConstructor
 @Getter
 public enum RpcError {

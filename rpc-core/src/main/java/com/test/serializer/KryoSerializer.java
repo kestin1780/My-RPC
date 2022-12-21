@@ -16,7 +16,7 @@ import java.io.ByteArrayOutputStream;
 /**
  * Kryo序列化器
  */
-public class KryoSerializer implements CommonSerializer{
+public class KryoSerializer implements CommonSerializer {
 
     private static final Logger logger = LoggerFactory.getLogger(KryoSerializer.class);
 
@@ -60,6 +60,6 @@ public class KryoSerializer implements CommonSerializer{
 
     @Override
     public int getCode() {
-        return SerializerCode.KRYO.getCode();
+        return SerializerCode.valueOf("HESSIAN").getCode();
     }
 }

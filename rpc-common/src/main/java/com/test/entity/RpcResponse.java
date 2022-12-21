@@ -11,8 +11,6 @@ import java.io.Serializable;
 @Data
 public class RpcResponse<T> implements Serializable {
 
-    public RpcResponse() {}
-
     /**
      *  响应状态码
      */
@@ -43,4 +41,6 @@ public class RpcResponse<T> implements Serializable {
         response.setMessage(code.getMessage());
         return response;
     }
+
+    public RpcResponse() {}
 }

@@ -3,6 +3,10 @@ package com.test.enumeration;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+/**
+ *  方法调用的响应状态码
+ */
+
 @AllArgsConstructor
 @Getter
 public enum ResponseCode {

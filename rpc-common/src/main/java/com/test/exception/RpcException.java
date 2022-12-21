@@ -2,6 +2,9 @@ package com.test.exception;
 
 import com.test.enumeration.RpcError;
 
+/**
+ *  Rpc调用异常
+ */
 public class RpcException extends RuntimeException {
 
     public RpcException(RpcError error, String detail) {

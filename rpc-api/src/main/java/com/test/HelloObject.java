@@ -5,6 +5,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+
+/**
+ *  测试用Api的实体
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
