@@ -2,6 +2,7 @@ package com.test.entity;
 
 import com.test.enumeration.ResponseCode;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
@@ -9,6 +10,7 @@ import java.io.Serializable;
  * 根据执行完成或出错后向消费者返回的结果对象
  */
 @Data
+@NoArgsConstructor
 public class RpcResponse<T> implements Serializable {
 
     /**
@@ -49,5 +51,4 @@ public class RpcResponse<T> implements Serializable {
         return response;
     }
 
-    public RpcResponse() {}
 }

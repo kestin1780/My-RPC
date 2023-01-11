@@ -2,6 +2,7 @@ package com.test.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
@@ -11,6 +12,7 @@ import java.io.Serializable;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 //传输请求对象实体
 public class RpcRequest implements Serializable {
 
@@ -39,5 +41,4 @@ public class RpcRequest implements Serializable {
      */
     private Class<?>[] paramTypes;
 
-    public RpcRequest() {}
 }
