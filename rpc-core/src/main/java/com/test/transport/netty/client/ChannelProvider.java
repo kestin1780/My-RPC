@@ -1,4 +1,4 @@
-package com.test.netty.client;
+package com.test.transport.netty.client;
 
 import com.test.codec.CommonDecoder;
 import com.test.codec.CommonEncoder;

@@ -1,8 +1,10 @@
-package com.test.rpc;
+package com.test.handler;
 
 import com.test.entity.RpcRequest;
 import com.test.entity.RpcResponse;
 import com.test.enumeration.ResponseCode;
+import com.test.provider.ServiceProvider;
+import com.test.provider.ServiceProviderImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,9 +17,15 @@ import java.lang.reflect.Method;
 public class RequestHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(RequestHandler.class);
+    private static final ServiceProvider serviceProvider;
 
-    public Object Handle(RpcRequest rpcRequest, Object service) {
+    static {
+        serviceProvider = new ServiceProviderImpl();
+    }
+
+    public Object handle(RpcRequest rpcRequest) {
         Object result = null;
+        Object service = serviceProvider.getServiceProvider(rpcRequest.getInterfaceName());
         try {
             result = invokeTargetMethod(rpcRequest, service);
             logger.info("服务: {} 成功调用方法: {}", rpcRequest.getInterfaceName(), rpcRequest.getMethodName());

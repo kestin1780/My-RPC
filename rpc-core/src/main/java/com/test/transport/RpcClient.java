@@ -1,4 +1,4 @@
-package com.test.rpc;
+package com.test.transport;
 
 import com.test.entity.RpcRequest;
 import com.test.serializer.CommonSerializer;

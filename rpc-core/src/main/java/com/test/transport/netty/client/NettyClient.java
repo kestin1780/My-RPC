@@ -1,10 +1,12 @@
-package com.test.netty.client;
+package com.test.transport.netty.client;
 
 import com.test.entity.RpcRequest;
 import com.test.entity.RpcResponse;
 import com.test.enumeration.RpcError;
 import com.test.exception.RpcException;
-import com.test.rpc.RpcClient;
+import com.test.registry.NacosServiceRegister;
+import com.test.registry.ServiceRegistry;
+import com.test.transport.RpcClient;
 import com.test.serializer.CommonSerializer;
 import com.test.util.RpcMessageChecker;
 import io.netty.bootstrap.Bootstrap;
@@ -24,13 +26,13 @@ public class NettyClient implements RpcClient {
     private static final Logger logger = LoggerFactory.getLogger(NettyClient.class);
 
     private static final Bootstrap bootstrap;
+    private final ServiceRegistry serviceRegistry;
     private CommonSerializer serializer;
     private String host;
     private int port;
 
-    public NettyClient(String host, int port) {
-        this.host = host;
-        this.port = port;
+    public NettyClient() {
+        this.serviceRegistry = new NacosServiceRegister();
     }
 
     static {
@@ -49,7 +51,8 @@ public class NettyClient implements RpcClient {
         }
         AtomicReference<Object> result = new AtomicReference<>(null);
         try {
-            Channel channel = ChannelProvider.get(new InetSocketAddress(host, port), serializer);
+            InetSocketAddress inetSocketAddress = serviceRegistry.lookupService(rpcRequest.getInterfaceName());
+            Channel channel = ChannelProvider.get(inetSocketAddress, serializer);
             if (channel.isActive()) {
                 channel.writeAndFlush(rpcRequest).addListener(future1 -> {
                    if (future1.isSuccess()) {

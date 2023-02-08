@@ -1,18 +1,13 @@
 package com.test;
 
-import com.test.netty.server.NettyServer;
-import com.test.registry.DefaultServiceRegistry;
-import com.test.registry.ServiceRegistry;
-import com.test.serializer.HessianSerializer;
 import com.test.serializer.ProtobufSerializer;
+import com.test.transport.netty.server.NettyServer;
 
 public class NettyTestServer {
     public static void main(String[] args) {
         HelloService helloService = new HelloServiceImpl();
-        ServiceRegistry registry = new DefaultServiceRegistry();
-        registry.register(helloService);
-        NettyServer server = new NettyServer();
+        NettyServer server = new NettyServer("127.0.0.1", 9999);
         server.setSerializer(new ProtobufSerializer());
-        server.start(9999);
+        server.publishService(helloService, HelloService.class);
     }
 }

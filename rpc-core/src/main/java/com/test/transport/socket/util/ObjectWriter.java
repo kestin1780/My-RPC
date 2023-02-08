@@ -1,4 +1,4 @@
-package com.test.socket.util;
+package com.test.transport.socket.util;
 
 import com.test.entity.RpcRequest;
 import com.test.enumeration.PackageType;
